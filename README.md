@@ -1,4 +1,4 @@
-# `lysekrone`: LD_PRELOAD client library for xsocket.
+# `Macambra`: SOCKS5 to SOCKS5 port forward with full Tor and xsocket support.
 
 `macambra` is a SOCKS5 to SOCKS5 port forwarder with full `UDP Associate`, `BIND` and `Tor` support, as well as [xsocket](https://github.com/koro666/xsocket) support, meaning you can forward any SOCKS5 port to a network namespace or VRF transparently. It is intended mainly for forwarding `Tor` SOCKS5 port to a network namespace allowing to securely use the proxy and connecting to a VPN over Tor inside a network namespace.
 
