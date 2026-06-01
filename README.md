@@ -40,7 +40,7 @@ Send SOCKS5 requests to `127.0.0.1:9150` in the host namespace (in which `macamb
 
 `./macambra -l 127.0.0.1:1080 -f 127.0.0.1:9150 -uds-listen @xsocket-socket -uds-connect /var/xsocket_socket`
 
-Listen in the VRF in which `xsocket-server` is running with the Unix socket `"@xsocket-socket"` ( `-uds-listen` ) and forward to the network namespace in which another `xsocket-server` is running with `"/var/xsocket_socket"` ( `-uds-connect` ). The default usage with VRFs is to use a abstract Unix socket as it is in this example, but if the VRF interface is inside a isolated network namespace outside the host side, an Unix socket as a file path is needed (abstract Unix sockets don't bypass a network namespace boundary).
+Listen in the VRF in which `xsocket-server` is running with the Unix socket `"@xsocket-socket"` ( `-uds-listen` ) and forward to the network namespace in which another `xsocket-server` is running with `"/var/xsocket_socket"` ( `-uds-connect` ). The default usage with VRFs is to use an abstract Unix socket as it is in this example, but if the VRF interface is inside a isolated network namespace outside the host side, an Unix socket as a file path is needed (abstract Unix sockets don't bypass a network namespace boundary).
 
 **Notes:**
 
@@ -60,7 +60,7 @@ meson compile -C build
 sudo meson install -C build
 ```
 
-Add network namespaces:
+Add a network namespace:
 
 ```
 sudo ip netns add somenetns
@@ -85,11 +85,11 @@ sudo ip netns exec somenetns ip -6 route add default dev lo
 Now you should have an `OpenVPN` configuration file with TCP support by default, if you don't, pick up some `OpenVPN` files in [VPN Gate](https://www.vpngate.net/en/) (you will need to test some `VPN Gate` files until you find one that is working).
 Once you have the TCP `OpenVPN` configuration file, do this:
 
-`sudo ip netns exec somenetns openvpn --socks-proxy 127.0.0.1 1080 --config /path/to/openvpn/config_file.ovpn`
+`sudo ip netns exec somenetns openvpn --socks-proxy 127.0.0.1 1080 --daemon --config /path/to/openvpn/config_file.ovpn`
 
 If you downloaded files from [VPN Gate](https://www.vpngate.net/en/), run this instead of above one:
 
-`sudo ip netns exec somenetns openvpn --socks-proxy 127.0.0.1 1080 --data-ciphers AES-128-CBC --config /path/to/openvpn/config_file.ovpn`
+`sudo ip netns exec somenetns openvpn --socks-proxy 127.0.0.1 1080 --data-ciphers AES-128-CBC --daemon --config /path/to/openvpn/config_file.ovpn`
 
 Wait some seconds and check there is a `tun0` interface inside the network namespace:
 
